@@ -7,10 +7,10 @@
     <canvas id="myChart" width="800" height="400"></canvas>
     <h2>Predicted Price: <span id="predicted-price"></span></h2>
     <script>
-        // Parse JSON data passed from the view
+       
         var data = JSON.parse('{{ data | escapejs }}');
         
-        // Normalize the predicted prices from [0, 1] to [400, 700]
+
         var normalizedPredictedPrices = data.predicted_prices.map(function(price) {
             return price;
         });

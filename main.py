@@ -24,14 +24,14 @@ def preprocess_data(df, sequence_length):
     return scaler, X_train, X_test, y_train, y_test
 
 # Function to train LSTM model
-def train_lstm_model(X_train, y_train):
-    model = Sequential()
-    model.add(LSTM(50, activation='sigmoid', return_sequences=True, input_shape=(X_train.shape[1], X_train.shape[2])))
-    model.add(LSTM(50, activation='sigmoid'))
-    model.add(Dense(1))
-    model.compile(optimizer=Adam(learning_rate=0.001), loss=MeanSquaredError())
-    model.fit(X_train, y_train, epochs=150, batch_size=32, verbose=2)
-    return model
+# def train_lstm_model(X_train, y_train):
+#     model = Sequential()
+#     model.add(LSTM(50, activation='sigmoid', return_sequences=True, input_shape=(X_train.shape[1], X_train.shape[2])))
+#     model.add(LSTM(50, activation='sigmoid'))
+#     model.add(Dense(1))
+#     model.compile(optimizer=Adam(learning_rate=0.001), loss=MeanSquaredError())
+#     model.fit(X_train, y_train, epochs=150, batch_size=32, verbose=2)
+#     return model
 
 # Function to save model to HDF5 file
 def save_model_to_h5(model, filename):
@@ -62,5 +62,5 @@ if __name__ == "__main__":
     tomorrow_prediction = model.predict(latest_scaled)
     tomorrow_prediction = scaler.inverse_transform(tomorrow_prediction)
     print(tomorrow_prediction[0][0])
-    
+
     
