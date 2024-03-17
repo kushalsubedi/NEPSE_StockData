@@ -65,7 +65,8 @@
     <form id="downloadForm" method="post" action="{% url 'download_data' %}">
         {% csrf_token %}
         <label for="stock_symbol">Enter Stock Symbol:</label>
-        <input type="text" name="stock_symbol" id="stock_symbol" required>
+        <input type="text" name="stock_symbol" id="stock_symbol" class="my-2"  required>
+        <br>
         <button type="submit" id="downloadButton">Download Data</button>
     </form>
 
