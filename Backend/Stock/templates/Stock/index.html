@@ -1,29 +1,48 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {%block content%} {% include "nav.html" %}
+<div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 my-4">
+        <h1>Stock Price Prediction System</h1>
+        <p class="mb-4">
+          Gain insights into future stock movements with our web-based Stock
+          Price Prediction System. Utilizing cutting-edge algorithms and machine
+          learning, make informed investment decisions with confidence.
+        </p>
+        <a href="#" class="btn btn-primary">Predict</a>
+      </div>
+      <div class="col-md-6 my-4">
+        <img src="/6240060.jpg" alt="image " />
+      </div>
+    </div>
+  </div>
 
+  <div class="container">
+    <div class="row">
+      <h1 class="mx-auto my-3 text-primary">
+        Nepal Stock Exchange Limited Live Market
+      </h1>
 
-{%block content%}
-{% include "nav.html" %}
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <table class="table table-bordered table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th> </th>
-                            <th> SYMBOL</th>
-                            <th> LTP</th>
-                            <th> CHANGE</th>
-                            <th> HIGH</th>
-                            <th> LOW</th>
-                            <th> OPEN</th>
-                            <th> PREV. CLOSE</th>
-                            <th> </th>
-                               <th> </th> 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in data %}
-                        <tr style="
+      <div class="col">
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th></th>
+              <th>SYMBOL</th>
+              <th>LTP</th>
+              <th>CHANGE</th>
+              <th>HIGH</th>
+              <th>LOW</th>
+              <th>OPEN</th>
+              <th>PREV. CLOSE</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in data %}
+            <tr
+              style="
                             {% if row.row_class == 'increase-row' %}
                                 background-color: #ccffcc; /* Light green for increase */
                             {% elif row.row_class == 'decrease-row' %}
@@ -31,15 +50,22 @@
                             {% elif row.row_class == 'nochange-row' %}
                                 background-color: #f0f0f0; /* Light grey for no change */
                             {% endif %}
-                        ">
-                            {% for key, value in row.items %}
-                                <td>{{ value }}</td>
-                            {% endfor %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                        "
+            >
+              {% for key, value in row.items %}
+              <td>{{ value }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+  <footer class="bg-primary text-white py-4">
+    <div class="text-center">
+      <p class="mb-0">Email: StockPriceprediction@gmail.com</p>
+    </div>
+  </footer>
+</div>
 {%endblock%}
