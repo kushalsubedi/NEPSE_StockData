@@ -1,75 +1,74 @@
-{% extends "base.html" %}
-{%block content%}
-{% include 'nav.html'%}
+{% extends "base.html" %} {%block content%} {% include 'nav.html'%}
 
-    <h1>Stock Prediction Result</h1>
+<div class="container">
+  <h1>Stock Prediction Result</h1>
 
-    <canvas id="myChart" width="800" height="400"></canvas>
-    <h2>Predicted Price: <span id="predicted-price"></span></h2>
-    <script>
-        // Parse JSON data passed from the view
-        var data = JSON.parse('{{ data | escapejs }}');
-        
-        // Normalize the predicted prices from [0, 1] to [400, 700]
-        var normalizedPredictedPrices = data.predicted_prices.map(function(price) {
-            return price;
-        });
+  <canvas id="myChart" width="800" height="400"></canvas>
+  <h2>Predicted Price: <span id="predicted-price"></span></h2>
+</div>
+<script>
+  // Parse JSON data passed from the view
+  var data = JSON.parse('{{ data | escapejs }}');
 
-        // Get canvas and context
-        var ctx = document.getElementById('myChart').getContext('2d');
-        
-        // Initialize chart
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: data.dates,
-                datasets: [{
-                    label: 'Actual Prices',
-                    data: data.actual_prices,
-                    borderColor: 'blue',
-                    borderWidth: 1,
-                    fill: false,
-                    yAxisID: 'actual-y-axis' // Assign this dataset to the 'actual-y-axis'
-                }, {
-                    label: 'Predicted Prices',
-                    data: normalizedPredictedPrices,
-                    borderColor: 'red',
-                    borderWidth: 1,
-                    fill: false,
-                    yAxisID: 'predicted-y-axis' // Assign this dataset to the 'predicted-y-axis'
-                }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        type: 'time',
-                        time: {
-                            unit: 'day'
-                        }
-                    }],
-                    yAxes: [{
-                        id: 'actual-y-axis',
-                        position: 'left',
-                        ticks: {
-                            min: 400, // Set minimum y-axis value
-                            max: 555  // Set maximum y-axis value
-                        }
-                    }, {
-                        {% comment %} id: 'predicted-y-axis',
-                        position: 'right',
-                        ticks: {
-                            min: 0,   // Set minimum y-axis value
-                            max: 1,   // Set maximum y-axis value
-                            stepSize: 0.1 // Set the step size for the y-axis ticks
-                        } {% endcomment %}
-                    }]
-                }
-            }
-        });
+  // Normalize the predicted prices from [0, 1] to [400, 700]
+  var normalizedPredictedPrices = data.predicted_prices.map(function(price) {
+      return price;
+  });
 
-        // Display predicted price
-        document.getElementById('predicted-price').innerText = data.tomorrow_prediction.toFixed(2);
-    </script>
+  // Get canvas and context
+  var ctx = document.getElementById('myChart').getContext('2d');
+
+  // Initialize chart
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: data.dates,
+          datasets: [{
+              label: 'Actual Prices',
+              data: data.actual_prices,
+              borderColor: 'blue',
+              borderWidth: 1,
+              fill: false,
+              yAxisID: 'actual-y-axis' // Assign this dataset to the 'actual-y-axis'
+          }, {
+              label: 'Predicted Prices',
+              data: normalizedPredictedPrices,
+              borderColor: 'red',
+              borderWidth: 1,
+              fill: false,
+              yAxisID: 'predicted-y-axis' // Assign this dataset to the 'predicted-y-axis'
+          }]
+      },
+      options: {
+          scales: {
+              xAxes: [{
+                  type: 'time',
+                  time: {
+                      unit: 'day'
+                  }
+              }],
+              yAxes: [{
+                  id: 'actual-y-axis',
+                  position: 'left',
+                  ticks: {
+                      min: 400, // Set minimum y-axis value
+                      max: 555  // Set maximum y-axis value
+                  }
+              }, {
+                  {% comment %} id: 'predicted-y-axis',
+                  position: 'right',
+                  ticks: {
+                      min: 0,   // Set minimum y-axis value
+                      max: 1,   // Set maximum y-axis value
+                      stepSize: 0.1 // Set the step size for the y-axis ticks
+                  } {% endcomment %}
+              }]
+          }
+      }
+  });
+
+  // Display predicted price
+  document.getElementById('predicted-price').innerText = data.tomorrow_prediction.toFixed(2);
+</script>
 
 {% endblock %}
-
